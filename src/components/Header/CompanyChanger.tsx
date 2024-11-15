@@ -2,14 +2,12 @@ import React, {useState} from "react";
 import {useSelector} from "react-redux";
 
 import {
-    Box,
     Button,
     SwipeableDrawer,
     Typography
 } from "@mui/material";
 
 import {useAppDispatch} from "../../hooks/useAppDispatch.ts";
-
 
 import {selectCompany} from "../../store/company/selectors.ts";
 
@@ -49,17 +47,10 @@ const CompanyChanger: React.FC = () => {
             }}
                     onClick={() => setIsOpen(true)}
             >
-                <Box sx={{
-                    width: "38px",
-                    height: "38px",
-
-                    borderRadius: 4,
-                    backgroundColor: "grey",
-                }}></Box>
                 <Typography sx={{
                     fontSize: 24,
                     fontWeight: 700,
-                    color: 'common.black',
+                    // color: '',
                 }}>
                     {company.title}
                 </Typography>

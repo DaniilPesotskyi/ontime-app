@@ -26,5 +26,42 @@ export const theme = createTheme({
             contrastText: themeParams.destructive_text_color || '#ffffff',
         },
     },
-
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                contained: {
+                    backgroundColor: themeParams.button_color || '#1976d2',
+                    color: themeParams.button_text_color || '#ffffff',
+                },
+                outlined: {
+                    borderColor: themeParams.button_color || '#1976d2',
+                    color: themeParams.text_color || '#1976d2',
+                },
+                text: {
+                    color: themeParams.text_color || '#1976d2',
+                },
+            },
+        },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    color: themeParams.text_color || '#ffffff',
+                },
+            },
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: themeParams.text_color || '#000000',
+                        },
+                    },
+                    '& .MuiInputBase-input': {
+                        color: themeParams.text_color || '#000000', // Цвет текста в поле
+                    },
+                },
+            },
+        },
+    },
 });
