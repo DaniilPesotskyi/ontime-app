@@ -5,6 +5,5 @@ export interface IUser {
     telegramId: number,
     name: string,
     role: 'admin' | 'user',
-    imageUrl: string,
     records: IRecord[]
 }

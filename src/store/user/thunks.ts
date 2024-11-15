@@ -26,7 +26,6 @@ export const getUserThunk = createAsyncThunk(
             }
 
             const newUserData: IUser = {
-                imageUrl: telegramUser.photo_url ? telegramUser.photo_url : '',
                 records: [],
                 role: 'user',
                 telegramId: telegramUser.id,

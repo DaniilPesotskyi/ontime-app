@@ -10,7 +10,6 @@ export interface ICompany {
 
     startWorkHour: number,
     minorDelay: number,
-    severeDelay: number,
 
     users: IUser[],
 }

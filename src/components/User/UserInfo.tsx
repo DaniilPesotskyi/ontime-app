@@ -5,10 +5,13 @@ import {PieChart} from "@mui/x-charts";
 
 import {selectUser} from "../../store/user/selectors.ts";
 import {selectCompany} from "../../store/company/selectors.ts";
+import useTelegram from "../../hooks/useTelegram.ts";
 
 const UserInfo: React.FC = () => {
     const user = useSelector(selectUser)
     const company = useSelector(selectCompany)
+
+    const {tgUser} = useTelegram()
 
     const [open, setIsOpen] = useState<boolean>(false)
 
@@ -77,7 +80,7 @@ const UserInfo: React.FC = () => {
 
                     overflow: 'hidden',
                 }}>
-                    <img src={user.imageUrl} alt=""/>
+                    <img src={tgUser.photo_url} alt=""/>
                 </Box>
                 <Typography variant={'body1'}>Вітаємо, {user.name}</Typography>
             </Button>
