@@ -58,7 +58,7 @@ export const theme = createTheme({
                         },
                     },
                     '& .MuiInputBase-input': {
-                        color: themeParams.text_color || '#000000', // Цвет текста в поле
+                        color: themeParams.text_color || '#000000',
                     },
                 },
             },

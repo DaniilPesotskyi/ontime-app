@@ -22,16 +22,28 @@ export const fetchCompanyByRequestIdThunk = createAsyncThunk(
     async (requestId: ICompany['requestId'], {rejectWithValue}) => {
         try {
             const companiesRef = collection(db, 'companies');
-            const q = query(companiesRef, where("requestId", "==", requestId));
+            const q = query(companiesRef, where('requestId', '==', requestId));
             const querySnapshot = await getDocs(q);
 
             if (querySnapshot.empty) {
-                return rejectWithValue('Невірний код')
+                return rejectWithValue('Невірний код');
             }
 
             const companyDoc = querySnapshot.docs[0];
+            const companyData = {id: companyDoc.id, ...companyDoc.data()} as ICompany;
 
-            return {id: companyDoc.id, ...companyDoc.data()} as ICompany;
+            const usersRef = collection(db, `companies/${companyDoc.id}/users`);
+            const usersSnapshot = await getDocs(usersRef);
+
+            const users: ICompany['users'] = usersSnapshot.docs.map(userDoc => ({
+                id: Number(userDoc.id),
+                name: userDoc.data().name,
+                role: userDoc.data().role,
+                telegramId: userDoc.data().telegramId,
+                imageUrl: userDoc.data().imageUrl,
+            }));
+
+            return {...companyData, users};
         } catch (error) {
             return rejectWithValue('Помилка серверу');
         }

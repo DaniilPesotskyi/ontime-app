@@ -11,5 +11,5 @@ export interface ICompany {
     startWorkHour: number,
     minorDelay: number,
 
-    users: IUser[],
+    users: Omit<IUser, 'records'>[],
 }

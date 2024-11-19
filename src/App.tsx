@@ -16,9 +16,11 @@ import CheckinButton from "./components/CheckinButton.tsx";
 import CompaniesDrawer from "./components/CompaniesDrawer/CompaniesDrawer.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import UserInfo from "./components/User/UserInfo.tsx";
+import useTelegram from "./hooks/useTelegram.ts";
 
 function App() {
     const dispatch = useAppDispatch();
+    const {tg} = useTelegram()
 
     const company = useSelector(selectCompany);
 
@@ -27,6 +29,7 @@ function App() {
             await dispatch(initializeCompanyThunk())
         }
 
+        tg.expand()
         initAppData()
     }, [dispatch])
 
@@ -56,7 +59,7 @@ function App() {
                     padding: "20px 10px",
                 }}>
                     <Header/>
-                    <UserInfo />
+                    <UserInfo/>
                     <CheckinButton/>
                     <Footer/>
                 </Box>
