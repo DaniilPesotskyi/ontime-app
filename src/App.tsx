@@ -11,12 +11,14 @@ import {initializeCompanyThunk} from "./store/company/thunks.ts";
 import {fetchIpAndCheckAccess} from "./store/workspace/thunks.ts";
 import {getUserThunk} from "./store/user/thunks.ts";
 
+import useTelegram from "./hooks/useTelegram.ts";
+
 import Header from "./components/Header/Header.tsx";
 import CheckinButton from "./components/CheckinButton.tsx";
 import CompaniesDrawer from "./components/CompaniesDrawer/CompaniesDrawer.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import UserInfo from "./components/User/UserInfo.tsx";
-import useTelegram from "./hooks/useTelegram.ts";
+import WeeklyAttendance from "./components/WeeklyAttendance/WeeklyAttendance.tsx";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -61,6 +63,7 @@ function App() {
                     <Header/>
                     <UserInfo/>
                     <CheckinButton/>
+                    <WeeklyAttendance/>
                     <Footer/>
                 </Box>
             </Collapse>

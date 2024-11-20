@@ -1,11 +1,19 @@
 import React, {useState} from "react";
 import {Box, Button, Skeleton, SwipeableDrawer, Typography} from "@mui/material";
 import {useSelector} from "react-redux";
-import {PieChart} from "@mui/x-charts";
+import {DefaultizedPieValueType, PieChart} from "@mui/x-charts";
 
 import {selectUser} from "../../store/user/selectors.ts";
 import {selectCompany} from "../../store/company/selectors.ts";
 import useTelegram from "../../hooks/useTelegram.ts";
+import {calculateAttendanceData} from "../../utils/caclulateAttendanceData.ts";
+import {
+    MAJOR_DELAY_COLOR,
+    MINOR_DELAY_COLOR,
+    ONTIME_DELAY_COLOR,
+    SEVERE_DELAY_COLOR,
+    SIGNIFICANT_DELAY_COLOR
+} from "../../constants.ts";
 
 const UserInfo: React.FC = () => {
     const user = useSelector(selectUser)
@@ -31,33 +39,15 @@ const UserInfo: React.FC = () => {
         );
     }
 
-    const attendanceData = user.records.reduce(
-        (acc, record) => {
-            const [hours, minutes] = record.time.split(":").map(Number);
-            const arrivalTime = hours * 60 + minutes;
-            const startTime = company.startWorkHour * 60;
-
-            const delay = arrivalTime - startTime;
-
-            if (delay <= 0) {
-                acc.onTime += 1;
-            } else if (delay <= company.minorDelay) {
-                acc.minorDelay += 1;
-            } else {
-                acc.severeDelay += 1;
-            }
-
-            return acc;
-        },
-        {onTime: 0, minorDelay: 0, severeDelay: 0}
-    );
+    const attendanceData = calculateAttendanceData(user.records, company)
 
     const data = [
-        {label: "", value: attendanceData.onTime, color: "#4CAF50"},
-        {label: "", value: attendanceData.minorDelay, color: "#FFEB3B"},
-        {label: "", value: attendanceData.severeDelay, color: "#F44336"},
+        {label: "", value: attendanceData.onTime, color: ONTIME_DELAY_COLOR},
+        {label: "", value: attendanceData.minorDelay, color: MINOR_DELAY_COLOR},
+        {label: "", value: attendanceData.significantDelay, color: SIGNIFICANT_DELAY_COLOR},
+        {label: "", value: attendanceData.majorDelay, color: MAJOR_DELAY_COLOR},
+        {label: "", value: attendanceData.severeDelay, color: SEVERE_DELAY_COLOR},
     ].filter(item => item.value > 0);
-
 
     return (
         <>
@@ -122,11 +112,13 @@ const UserInfo: React.FC = () => {
                                     innerRadius: 80,
                                     outerRadius: 130,
                                     data,
+                                    arcLabel: (params: DefaultizedPieValueType) => params.value.toString()
                                 },
                             ]}
                             width={300}
                             height={300}
                             margin={{right: 5}}
+
                             legend={{hidden: true}}
                         />
                     </Box>

@@ -1,9 +1,12 @@
 import React from "react";
 import {Box, IconButton, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Typography} from "@mui/material";
-import {AssignmentLateOutlined, Close, VpnLockOutlined, WatchLaterOutlined} from "@mui/icons-material";
+import {Close, VpnLockOutlined, WatchLaterOutlined} from "@mui/icons-material";
 import {useSelector} from "react-redux";
+
 import {selectCompany} from "../../store/company/selectors.ts";
+
 import UserItem from "./UserItem.tsx";
+
 import {IUser} from "../../types/userTypes.ts";
 
 interface IProps {
@@ -63,13 +66,6 @@ const SideMenu: React.FC<IProps> = ({isOpen, onClose}) => {
                     </ListItemIcon>
                     <ListItemText primary="Початок робочого дня:"/>
                     {company.startWorkHour}:00
-                </ListItem>
-                <ListItem>
-                    <ListItemIcon>
-                        <AssignmentLateOutlined/>
-                    </ListItemIcon>
-                    <ListItemText primary={'Незначне запізнення:'}/>
-                    {company.minorDelay} хв
                 </ListItem>
             </List>
             <Typography variant={'subtitle1'}>Користувачі</Typography>

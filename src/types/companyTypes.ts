@@ -10,6 +10,8 @@ export interface ICompany {
 
     startWorkHour: number,
     minorDelay: number,
+    significantDelay: number,
+    majorDelay: number,
 
     users: Omit<IUser, 'records'>[],
 }

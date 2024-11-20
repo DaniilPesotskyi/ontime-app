@@ -93,8 +93,6 @@ const CheckinButton: React.FC = () => {
         setSnackbarMessage('Відмітка успішна');
     }
 
-    // const [status, setStatus] = useState<IButtonStatus>('load')
-
     return (
         <>
             <Button
