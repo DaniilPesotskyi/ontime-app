@@ -23,6 +23,8 @@ const SideMenu: React.FC<IProps> = ({isOpen, onClose}) => {
         )
     }
 
+    console.log(company.users)
+
     return (
         <SwipeableDrawer
             onOpen={() => {
@@ -69,9 +71,13 @@ const SideMenu: React.FC<IProps> = ({isOpen, onClose}) => {
                 </ListItem>
             </List>
             <Typography variant={'subtitle1'}>Користувачі</Typography>
-            <List>
+            <List sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: '10px'
+            }}>
                 {company.users.map((user: Omit<IUser, 'records'>) => (
-                    <UserItem user={user}/>
+                    <UserItem user={user} key={user.id}/>
                 ))}
             </List>
         </SwipeableDrawer>

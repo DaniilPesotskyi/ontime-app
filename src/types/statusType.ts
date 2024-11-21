@@ -1,1 +1,1 @@
-export type IButtonStatus = 'unavailable' | 'checkedIn' | 'noCheckedIn' | 'load'
+export type IButtonStatus = 'unavailable' | 'checkedIn' | 'noCheckedIn' | 'load' | 'lateCheckIn'

@@ -1,10 +1,8 @@
 import React from "react";
 import {Box, Chip, ListItem, Typography} from "@mui/material";
-import {useSelector} from "react-redux";
 
 import {IUser} from "../../types/userTypes.ts";
 
-import {selectUser} from "../../store/user/selectors.ts";
 import useTelegram from "../../hooks/useTelegram.ts";
 
 
@@ -14,8 +12,6 @@ interface IProps {
 
 const UserItem: React.FC<IProps> = ({user}) => {
     const {tg, tgUser} = useTelegram()
-
-    const currentUser = useSelector(selectUser)
 
     return (
         <ListItem sx={{
@@ -45,7 +41,7 @@ const UserItem: React.FC<IProps> = ({user}) => {
                         gap: '10px'
                     }}>
                         <Typography variant={'body1'}>{user.name}</Typography>
-                        {currentUser?.telegramId === tgUser.id && <Chip label={'Ви'} color={'info'} size={'small'} />}
+                        {user.telegramId === tgUser.id && <Chip label={'Ви'} color={'info'} size={'small'}/>}
                     </Box>
                     <Typography variant={'body2'}>{user.id} | {user.role}</Typography>
                 </Box>

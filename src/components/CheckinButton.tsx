@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {selectUser} from "../store/user/selectors.ts";
 import {selectHasAccess} from "../store/workspace/selectors.ts";
 import {green, grey, orange, red} from "@mui/material/colors";
+import isLate from "../utils/isLate.ts";
 
 const CheckinButton: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -51,12 +52,18 @@ const CheckinButton: React.FC = () => {
                 color: red['400']
             }
         }
-        if (status === 'noCheckedIn') {
+        if (status === 'noCheckedIn' && isLate()) {
+            return {
+                text: 'Відмітитись із запізненням',
+                color: orange['400']
+            }
+        } else if(status === 'noCheckedIn') {
             return {
                 text: 'Відмітитись',
                 color: orange['400']
             }
         }
+
         if (status === 'checkedIn') {
             return {
                 text: 'Вже відмітились',
@@ -98,8 +105,8 @@ const CheckinButton: React.FC = () => {
             <Button
                 onClick={handleCheckinButtonClick}
                 variant={'contained'} sx={{
-                width: '200px',
-                height: '200px',
+                width: '280px',
+                height: '280px',
 
                 borderRadius: "50%",
                 backgroundColor: buttonSettings().color,
