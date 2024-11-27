@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, CircularProgress, Snackbar} from "@mui/material";
+import {Button, CircularProgress, Collapse, IconButton, Snackbar} from "@mui/material";
 import {addRecordThunk} from "../store/user/thunks.ts";
 import {IButtonStatus} from "../types/statusType.ts";
 import {useAppDispatch} from "../hooks/useAppDispatch.ts";
@@ -8,6 +8,8 @@ import {selectUser} from "../store/user/selectors.ts";
 import {selectHasAccess} from "../store/workspace/selectors.ts";
 import {green, grey, orange, red} from "@mui/material/colors";
 import isLate from "../utils/isLate.ts";
+import {IRecord} from "../types/recordsTypes.ts";
+import {HomeOutlined} from "@mui/icons-material";
 
 const CheckinButton: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -57,7 +59,7 @@ const CheckinButton: React.FC = () => {
                 text: 'Відмітитись із запізненням',
                 color: orange['400']
             }
-        } else if(status === 'noCheckedIn') {
+        } else if (status === 'noCheckedIn') {
             return {
                 text: 'Відмітитись',
                 color: orange['400']
@@ -79,7 +81,7 @@ const CheckinButton: React.FC = () => {
     }
 
     // CLICK
-    const handleCheckinButtonClick = async () => {
+    const handleCheckinButtonClick = async (type: IRecord['type']) => {
         if (!user) {
             return
         }
@@ -92,7 +94,7 @@ const CheckinButton: React.FC = () => {
             return
         }
         await dispatch(addRecordThunk({
-            type: "onsite",
+            type: type,
             day: currentDay,
             time: currentTime,
             reason: "Regular check-in"
@@ -103,10 +105,10 @@ const CheckinButton: React.FC = () => {
     return (
         <>
             <Button
-                onClick={handleCheckinButtonClick}
+                onClick={() => handleCheckinButtonClick('onsite')}
                 variant={'contained'} sx={{
-                width: '280px',
-                height: '280px',
+                width: '220px',
+                height: '220px',
 
                 borderRadius: "50%",
                 backgroundColor: buttonSettings().color,
@@ -116,6 +118,11 @@ const CheckinButton: React.FC = () => {
                 )}
                 {buttonSettings().text}
             </Button>
+            <Collapse in={status === 'noCheckedIn' || status === 'lateCheckIn'}>
+                <IconButton onClick={() => handleCheckinButtonClick('remote')}>
+                    <HomeOutlined/>
+                </IconButton>
+            </Collapse>
             <Snackbar
                 open={snackbarMessage.length > 0}
                 autoHideDuration={1000}
