@@ -10,15 +10,19 @@ import {green, grey, orange, red} from "@mui/material/colors";
 import isLate from "../utils/isLate.ts";
 import {IRecord} from "../types/recordsTypes.ts";
 import {HomeOutlined} from "@mui/icons-material";
+import {selectCompany} from "../store/company/selectors.ts";
+import ReasonDrawer from "./ReasonDrawer.tsx";
 
 const CheckinButton: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const user = useSelector(selectUser)
+    const company = useSelector(selectCompany)
     const hasAccess = useSelector(selectHasAccess)
 
     const [status, setStatus] = useState<IButtonStatus>('load')
     const [snackbarMessage, setSnackbarMessage] = useState<string>('')
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
 
     const currentDay = new Date().toISOString().split("T")[0];
     const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
@@ -54,7 +58,7 @@ const CheckinButton: React.FC = () => {
                 color: red['400']
             }
         }
-        if (status === 'noCheckedIn' && isLate()) {
+        if (company && status === 'noCheckedIn' && isLate(company.startWorkHour)) {
             return {
                 text: 'Відмітитись із запізненням',
                 color: orange['400']
@@ -82,7 +86,7 @@ const CheckinButton: React.FC = () => {
 
     // CLICK
     const handleCheckinButtonClick = async (type: IRecord['type']) => {
-        if (!user) {
+        if (!user && !company) {
             return
         }
         if (status === 'unavailable') {
@@ -93,13 +97,29 @@ const CheckinButton: React.FC = () => {
             setSnackbarMessage('Вже відмітились')
             return
         }
-        await dispatch(addRecordThunk({
-            type: type,
-            day: currentDay,
-            time: currentTime,
-            reason: "Regular check-in"
-        }));
-        setSnackbarMessage('Відмітка успішна');
+
+        if (company && isLate(company.startWorkHour)) {
+            if (type === 'onsite') {
+                setIsDrawerOpen(true)
+            } else {
+                await dispatch(addRecordThunk({
+                    type: type,
+                    day: currentDay,
+                    time: currentTime,
+                    reason: ''
+                }));
+            }
+        } else {
+            await dispatch(addRecordThunk({
+                type: type,
+                day: currentDay,
+                time: currentTime,
+                reason: ''
+            }));
+            setSnackbarMessage('Відмітка успішна');
+        }
+
+
     }
 
     return (
@@ -129,6 +149,7 @@ const CheckinButton: React.FC = () => {
                 onClose={() => setSnackbarMessage('')}
                 message={snackbarMessage}
             />
+            <ReasonDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
         </>
     )
 }
