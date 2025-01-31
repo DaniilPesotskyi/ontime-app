@@ -19,10 +19,14 @@ import CompaniesDrawer from "./components/CompaniesDrawer/CompaniesDrawer.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import UserInfo from "./components/User/UserInfo.tsx";
 import WeeklyAttendance from "./components/WeeklyAttendance/WeeklyAttendance.tsx";
+import {selectUser} from "./store/user/selectors.ts";
+import UsersStats from "./components/UsersStats/UsersStats.tsx";
 
 function App() {
     const dispatch = useAppDispatch();
+    const user = useSelector(selectUser)
     const {tg} = useTelegram()
+
 
     const company = useSelector(selectCompany);
 
@@ -62,9 +66,15 @@ function App() {
                 }}>
                     <Header/>
                     <UserInfo/>
-                    <CheckinButton/>
-                    <WeeklyAttendance/>
-                    <Footer/>
+                    {user?.role === 'admin' ? (
+                        <UsersStats/>
+                    ) : (
+                        <>
+                            <CheckinButton/>
+                            <WeeklyAttendance/>
+                            <Footer/>
+                        </>
+                    )}
                 </Box>
             </Collapse>
             <CompaniesDrawer isOpen={company === null}/>
