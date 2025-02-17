@@ -138,7 +138,7 @@ const CheckinButton: React.FC = () => {
                 )}
                 {buttonSettings().text}
             </Button>
-            <Collapse in={status === 'noCheckedIn' || status === 'lateCheckIn'}>
+            <Collapse in={status === 'unavailable'}>
                 <IconButton onClick={() => handleCheckinButtonClick('remote')}>
                     <HomeOutlined/>
                 </IconButton>
