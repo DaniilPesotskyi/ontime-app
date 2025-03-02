@@ -1,4 +1,4 @@
-import {createTheme} from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 // @ts-ignore
 const themeParams = window.Telegram.WebApp.themeParams;
@@ -32,13 +32,24 @@ export const theme = createTheme({
                 contained: {
                     backgroundColor: themeParams.button_color || '#1976d2',
                     color: themeParams.button_text_color || '#ffffff',
+                    '&.Mui-disabled': {
+                        backgroundColor: themeParams.hint_color || '#808080', // Серый фон для отключенной кнопки
+                        color: themeParams.text_color ? `${themeParams.text_color}80` : '#ffffff80', // Полупрозрачный текст
+                    },
                 },
                 outlined: {
                     borderColor: themeParams.button_color || '#1976d2',
                     color: themeParams.text_color || '#1976d2',
+                    '&.Mui-disabled': {
+                        borderColor: themeParams.hint_color || '#808080', // Серый контур
+                        color: themeParams.hint_color || '#808080', // Серый текст
+                    },
                 },
                 text: {
                     color: themeParams.text_color || '#1976d2',
+                    '&.Mui-disabled': {
+                        color: themeParams.hint_color || '#808080', // Серый текст
+                    },
                 },
             },
         },

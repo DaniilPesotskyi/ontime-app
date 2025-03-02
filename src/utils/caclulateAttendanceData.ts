@@ -1,8 +1,8 @@
-import {IUser} from "../types/userTypes.ts";
-import {ICompany} from "../types/companyTypes.ts";
+import {ICompany} from "../types/company";
+import {IRecord} from "../types/record";
 
 export const calculateAttendanceData = (
-    records: IUser['records'],
+    records: IRecord[],
     company: ICompany
 ) => {
     return records.reduce(

@@ -1,1 +1,0 @@
-export type IButtonStatus = 'unavailable' | 'checkedIn' | 'noCheckedIn' | 'load' | 'lateCheckIn'
