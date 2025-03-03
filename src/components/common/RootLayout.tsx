@@ -12,6 +12,7 @@ import useTelegram from "../../hooks/useTelegram.ts";
 
 const RootLayout: React.FC = () => {
     const {tg, tgUser} = useTelegram()
+
     const location = useLocation()
     const navigate = useNavigate()
 

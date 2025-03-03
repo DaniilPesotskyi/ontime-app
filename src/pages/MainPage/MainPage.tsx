@@ -5,8 +5,9 @@ import {useAuth} from "../../hooks/useAuth.ts";
 
 import Container from "../../components/ui/Container.tsx";
 import UserCard from "../../components/pages/MainPage/UserCard.tsx";
-import UsersList from "../../components/pages/MainPage/AdminMainPage/UsersList.tsx";
+
 import UserMainPage from "../../components/pages/MainPage/UserMainPage/UserMainPage.tsx";
+import AdminMainPage from "../../components/pages/MainPage/AdminMainPage/AdminMainPage.tsx";
 
 const MainPage: React.FC = () => {
     const {data, isLoading} = useAuth();
@@ -26,7 +27,7 @@ const MainPage: React.FC = () => {
                 <UserMainPage/>
             )}
             {data?.role === 'admin' && (
-                <UsersList/>
+                <AdminMainPage/>
             )}
         </Container>
     );
