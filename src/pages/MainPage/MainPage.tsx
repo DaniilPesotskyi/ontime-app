@@ -10,12 +10,12 @@ import UserMainPage from "../../components/pages/MainPage/UserMainPage/UserMainP
 import AdminMainPage from "../../components/pages/MainPage/AdminMainPage/AdminMainPage.tsx";
 
 const MainPage: React.FC = () => {
-    const {data, isLoading} = useAuth();
+    const {data} = useAuth();
 
-    if (!data && !isLoading) {
+    if (!data) {
         return (
             <Typography color={'error'} textAlign={'center'}>
-                Помилка отримання користувача
+                Помилка отримання/створення користувача :(
             </Typography>
         )
     }
@@ -23,10 +23,10 @@ const MainPage: React.FC = () => {
     return (
         <Container>
             <UserCard/>
-            {data?.role === 'user' && (
+            {data.role === 'user' && (
                 <UserMainPage/>
             )}
-            {data?.role === 'admin' && (
+            {data.role === 'admin' && (
                 <AdminMainPage/>
             )}
         </Container>

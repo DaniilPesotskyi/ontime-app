@@ -1,5 +1,5 @@
 import React from "react";
-import {Box} from "@mui/material";
+import {LinearProgress, Typography} from "@mui/material";
 
 import {useCompany} from "../../../../hooks/company/useCompany.ts";
 import {useCompanyUsers} from "../../../../hooks/company/useCompanyUsers.ts";
@@ -9,14 +9,22 @@ import UserItem from "./UserItem.tsx";
 const AdminMainPage: React.FC = () => {
     const {data: company} = useCompany()
 
-    const {data: users} = useCompanyUsers(company ? company.id : '')
+    if (!company) {
+        return (
+            <Typography textAlign="center" color="error">Не вдалося завантажити компанію :(</Typography>
+        );
+    }
+
+    const {data: users, isLoading} = useCompanyUsers(company.id)
+    const usersMap = users ? users.filter(user => user.role !== 'admin') : []
 
     return (
-        <Box>
-            {users?.map((item, index) => (
-                <UserItem key={index} user={item} />
+        <>
+            {usersMap.map((item, index) => (
+                <UserItem key={index} user={item}/>
             ))}
-        </Box>
+            {isLoading && <LinearProgress/>}
+        </>
     )
 }
 

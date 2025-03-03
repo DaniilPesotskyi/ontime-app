@@ -15,5 +15,7 @@ export const getDelayColor = (company: ICompany, minutes: number) => {
         return MAJOR_DELAY_COLOR
     } else if (minutes > majorDelay) {
         return SEVERE_DELAY_COLOR
+    } else {
+        return 'transparent'
     }
 }

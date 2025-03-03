@@ -15,13 +15,16 @@ const UserMainPage: React.FC = () => {
     const {data: company} = useCompany();
     const {data: user, isLoading: userLoading} = useAuth();
 
-    const currentDay = new Date().toLocaleDateString("en-US")
+    if (!company || !user) {
+        return (
+            <Typography textAlign="center" color="error">Не вдалося завантажити компанію або користувача :(</Typography>
+        );
+    }
 
-    const companyId = company?.id || '';
-    const userId = user?.id || 0;
+    const currentDay = new Date().toLocaleDateString("en-US");
 
-    const {data: records, isLoading: recordsLoading} = useRecordsByPeriod(companyId, userId, currentDay, currentDay);
-    const {mutate, isPending} = useAddRecords(companyId, userId);
+    const {data: records, isLoading: recordsLoading} = useRecordsByPeriod(company.id, user.id, currentDay, currentDay);
+    const {mutate, isPending} = useAddRecords(company.id, user.id);
 
     const record = records?.[0];
     const isLoading = userLoading || recordsLoading || isPending;
@@ -29,13 +32,6 @@ const UserMainPage: React.FC = () => {
     const handleCheck = (newRecord: IRecord) => {
         mutate([newRecord]);
     };
-
-    console.log("RECORDS:", records);
-    console.log("CURRENT RECORD:", record);
-
-    if (!user && !isLoading) {
-        return <Typography textAlign={'center'} color={'error'}>Щось пішло не так з отриманням користувача</Typography>
-    }
 
     return (
         <>
@@ -47,6 +43,6 @@ const UserMainPage: React.FC = () => {
             </Collapse>
         </>
     );
-}
+};
 
 export default UserMainPage;

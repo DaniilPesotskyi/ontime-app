@@ -13,7 +13,6 @@ export const useAuth = (companyId?: string, userId?: string, userData?: IUser) =
             return await getUserById(companyId, userId, userData);
         },
         staleTime: 1000 * 60 * 10,
-        refetchOnWindowFocus: false,
         enabled: Boolean(companyId && userId && userData),
     });
 };
