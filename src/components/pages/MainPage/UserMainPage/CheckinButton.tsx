@@ -23,8 +23,8 @@ const currentDay = new Date().toLocaleDateString("en-US");
 const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
 
 const CheckinButton: React.FC<IProps> = ({onCheck, isLoading, disabled}) => {
-    const {data: hasAccess, isLoading: isAccessLoading} = useAccess()
     const {data: company} = useCompany()
+    const {data: hasAccess, isLoading: isAccessLoading} = useAccess(company?.ip)
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
