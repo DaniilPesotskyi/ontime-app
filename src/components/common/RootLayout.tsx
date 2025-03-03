@@ -1,6 +1,6 @@
 import React, {Suspense, useEffect} from "react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import {Backdrop, CircularProgress, LinearProgress} from "@mui/material";
+import {Backdrop, Box, CircularProgress, LinearProgress} from "@mui/material";
 
 import {useCompany} from "../../hooks/company/useCompany.ts";
 import {useAuth} from "../../hooks/useAuth.ts";
@@ -28,7 +28,7 @@ const RootLayout: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        if(location.pathname !== '/') {
+        if (location.pathname !== '/') {
             tg.BackButton.onClick(() => navigate(-1))
             tg.BackButton.show()
         } else {
@@ -36,9 +36,19 @@ const RootLayout: React.FC = () => {
         }
     }, []);
 
+    if (isLoading) {
+        return (
+            <CircularProgress/>
+        )
+    }
 
     return (
-        <>
+        <Box
+            sx={{
+                height: "var(--tg-viewport-stable-height)",
+                overflowY: "auto",
+            }}
+        >
             <Header/>
             <Suspense fallback={<LinearProgress/>}>
                 <Outlet/>
@@ -46,7 +56,7 @@ const RootLayout: React.FC = () => {
             <Backdrop open={isLoading} sx={{zIndex: 200}}>
                 <CircularProgress/>
             </Backdrop>
-        </>
+        </Box>
     );
 };
 

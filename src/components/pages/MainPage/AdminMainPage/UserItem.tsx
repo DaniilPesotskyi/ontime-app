@@ -53,11 +53,12 @@ const RecordBox: React.FC<RecordBoxProps> = ({record, company}) => {
 
                 height: "100%",
 
-                borderLeft: delay === 0 ? undefined : '18px solid',
+                borderLeft: delay === 0 ? undefined : '14px solid',
                 borderColor: getDelayColor(company, delay),
                 borderRadius: 1,
                 backgroundColor: delay === 0 ? green['50'] : red['50'],
 
+                color: '#000000',
                 textAlign: "center",
             }}
         >
