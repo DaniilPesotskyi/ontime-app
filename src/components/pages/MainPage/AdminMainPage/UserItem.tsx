@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, CircularProgress, Divider, Typography} from "@mui/material";
+import {Box, CircularProgress, Typography} from "@mui/material";
 import {green, red} from "@mui/material/colors";
 
 import {ICompany} from "../../../../types/company";
@@ -26,7 +26,7 @@ const errorTypographyStyle = {
     height: '100%',
 
     borderRadius: 1,
-    backgroundColor: red['50'],
+    backgroundColor: red['100'],
 
     color: red['900'],
     textAlign: "center",
@@ -56,7 +56,7 @@ const RecordBox: React.FC<RecordBoxProps> = ({record, company}) => {
                 borderLeft: delay === 0 ? undefined : '14px solid',
                 borderColor: getDelayColor(company, delay),
                 borderRadius: 1,
-                backgroundColor: delay === 0 ? green['50'] : red['50'],
+                backgroundColor: delay === 0 ? green['100'] : red['100'],
 
                 color: '#000000',
                 textAlign: "center",
@@ -97,25 +97,24 @@ const UserItem: React.FC<UserItemProps> = ({user}) => {
     const record = records?.[0];
 
     return (
-        <>
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 100px",
-                    gridTemplateRows: "auto",
-                    alignItems: "center",
-                    px: 1
-                }}
-            >
-                <Typography>{user.name}</Typography>
-                {recordsLoading ? (
-                    <CircularProgress size={15}/>
-                ) : (
-                    <RecordBox record={record} company={company}/>
-                )}
-            </Box>
-            <Divider sx={{my: 1}}/>
-        </>
+        <Box
+            sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 100px",
+                gridTemplateRows: "auto",
+                alignItems: "center",
+                px: 1,
+
+                py: 1,
+            }}
+        >
+            <Typography>{user.name}</Typography>
+            {recordsLoading ? (
+                <CircularProgress size={15}/>
+            ) : (
+                <RecordBox record={record} company={company}/>
+            )}
+        </Box>
     );
 };
 

@@ -18,7 +18,13 @@ const RootLayout: React.FC = () => {
 
     const {data: company} = useCompany();
 
-    const defaultUser: IUser = {id: tgUser.id, role: 'user', telegramId: tgUser.id, name: tgUser.first_name};
+    const defaultUser: IUser = {
+        id: tgUser.id,
+        role: 'user',
+        telegramId: tgUser.id,
+        name: tgUser.first_name,
+        department: 'Без отдела'
+    };
 
     const {isLoading} = useAuth(company?.id, String(tgUser.id), defaultUser);
 

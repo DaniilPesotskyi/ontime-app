@@ -34,6 +34,7 @@ export const getUsersByCompanyId = async (companyId: string): Promise<IUser[]> =
         id: Number(doc.id),
         name: doc.data().name,
         role: doc.data().role,
+        department: doc.data().department,
         telegramId: doc.data().telegramId,
     }));
 };

@@ -13,5 +13,5 @@ export interface ICompany {
     significantDelay: number,
     majorDelay: number,
 
-    users: Omit<IUser, 'records'>[],
+    users: IUser[],
 }

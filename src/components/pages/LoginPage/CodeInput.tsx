@@ -58,7 +58,7 @@ const CodeInput: React.FC<IProps> = ({onSubmit}) => {
                         key={index}
                         inputRef={(el) => (inputRefs.current[index] = el)}
                         variant="outlined"
-                        type="text"
+                        type="number"
                         value={code[index]}
                         onChange={(e) => handleCodeChange(index, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(e, index)}

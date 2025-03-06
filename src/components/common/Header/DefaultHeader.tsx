@@ -9,35 +9,38 @@ const DefaultHeader: React.FC = () => {
     const {data} = useCompany()
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-            }}
-        >
-            <IconButton
-                component={Link}
-                to={'/dashboard'}
-            >
-                <SpaceDashboardOutlined/>
-            </IconButton>
-            <Button
-                variant='text'
-                size={'large'}
+        <>
+
+            <Box
                 sx={{
-                    fontSize: 20,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                 }}
             >
-                {data?.title}
-            </Button>
-            <IconButton
-                component={Link}
-                to={'/exceptions'}
-            >
-                <EventBusyRounded/>
-            </IconButton>
-        </Box>
+                <IconButton
+                    component={Link}
+                    to={'/dashboard'}
+                >
+                    <SpaceDashboardOutlined/>
+                </IconButton>
+                <Button
+                    variant='text'
+                    size={'large'}
+                    sx={{
+                        fontSize: 20,
+                    }}
+                >
+                    {data?.title}
+                </Button>
+                <IconButton
+                    component={Link}
+                    to={'/exceptions'}
+                >
+                    <EventBusyRounded/>
+                </IconButton>
+            </Box>
+        </>
     )
 }
 
