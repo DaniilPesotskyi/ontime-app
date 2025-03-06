@@ -63,14 +63,11 @@ const RecordBox: React.FC<RecordBoxProps> = ({record, company}) => {
             }}
         >
             {delay === 0 ? (
-                <Typography color={green['900']}>Вчасно</Typography>
+                <Typography color={green['900']}>{record.type === 'remote' ? 'Віддалено' : 'В офісі'}</Typography>
             ) : (
                 <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
                     <Typography>{formatMinutes(delay)}</Typography>
                 </Box>
-            )}
-            {record.type === 'remote' && (
-                <Typography color="info">(R)</Typography>
             )}
         </Box>
     );

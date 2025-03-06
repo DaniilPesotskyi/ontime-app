@@ -32,7 +32,8 @@ const AdminMainPage: React.FC = () => {
         <>
             {Object.keys(usersToRender).map((department) => (
                 <>
-                    <Typography variant={'subtitle1'} textAlign={'center'} color={'textSecondary'} marginBottom={1}>{department}</Typography>
+                    <Typography variant={'subtitle1'} textAlign={'center'} fontWeight={'bold'} color={'textSecondary'}
+                                marginBottom={1}>{department}</Typography>
                     {usersToRender[department].map(user => (
                         <UserItem key={user.id} user={user}/>
                     ))}

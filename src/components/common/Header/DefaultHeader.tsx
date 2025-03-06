@@ -6,7 +6,7 @@ import {EventBusyRounded, SpaceDashboardOutlined} from "@mui/icons-material";
 import {useCompany} from "../../../hooks/company/useCompany.ts";
 
 const DefaultHeader: React.FC = () => {
-    const {data} = useCompany()
+    const {data: company} = useCompany()
 
     return (
         <>
@@ -31,7 +31,7 @@ const DefaultHeader: React.FC = () => {
                         fontSize: 20,
                     }}
                 >
-                    {data?.title}
+                    {company?.title}
                 </Button>
                 <IconButton
                     component={Link}
